@@ -16,11 +16,13 @@ professor_fields = {
 
 class Professor(Pessoa):
     __tablename__ = "tb_professor"
-    professor_id  = db.Column(db.Integer, db.ForeignKey('pessoa.id'), nullable=False)
+    professor_id = db.Column(
+        db.Integer, db.ForeignKey('pessoa.id'), nullable=False)
     numero_matricula = db.Column(db.Integer, primary_key=True)
     titulacao = db.Column(db.String(255), nullable=False)
 
-    cursos = db.relationship("Curso", back_populates="professor")
+    cursos = db.relationship(
+        "Curso", back_populates="professor")  # TODO Remover
 
     __mapper_args__ = {'polymorphic_identity': "professor", 'concrete': True}
 
