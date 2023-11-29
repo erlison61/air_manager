@@ -1,7 +1,7 @@
 from flask_restful import Resource
 
-class Index(Resource):
+class IndexResource(Resource):
     def get(self):
-        return {'versao': '1.0'}
+        return {'message': 'Hello World'}
 
     

@@ -1,6 +1,6 @@
 from flask_restful import Resource, marshal_with
 
-from model.pessoa import Pessoa, pessoa_fields
+from model.Pessoa import Pessoa, pessoa_fields
 
 class PessoasResource(Resource):
     @marshal_with(pessoa_fields)

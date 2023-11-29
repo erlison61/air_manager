@@ -1,8 +1,8 @@
 from flask_restful import fields
 from helper.database import db
 from datetime import datetime
-from model.professor import Professor  
-from model.sala import Sala  
+from model.Professor import Professor  
+from model.Sala import Sala  
 
 aula_fields = {
     'id': fields.Integer,
@@ -21,8 +21,8 @@ class Aula(db.Model):
     professor_id = db.Column(db.String(255), db.ForeignKey('tb_professor.professor_id'), nullable=False)
     sala_id = db.Column(db.Integer, db.ForeignKey('tb_sala.id'))
 
-    professor = db.relationship(Professor, backref=db.backref('aulas', lazy=True))
-    sala = db.relationship(Sala, backref=db.backref('aulas', lazy=True))
+    professor = db.relationship(Professor)
+    sala = db.relationship(Sala)
 
     def __init__(self, inicio: datetime, fim: datetime, professor_id: str, sala_id: int, disciplina_id: int):
         self.inicio = inicio

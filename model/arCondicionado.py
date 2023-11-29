@@ -27,17 +27,22 @@ class ArCondicionado(db.Model):
     potencia = db.Column(db.Integer, nullable=False)
     consumo = db.Column(db.Float, nullable=False)
     voltagem = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Bool, nullable=False)
 
     status = db.Column(db.Boolean, nullable=False)
 
-    # TODO Verificar construtor
-    def __init__(self, numero_serie: int, status: bool, marca: str, modelo: str):
-        self.numero_serie = numero_serie
-        self.status = status
+    # TODO Verificar construtor ✅
+    def __init__(self, id:int, fabricante:str, marca:str, modelo:str, numero_serie:str, potencia:int, consumo:float, voltagem:int, status:bool):
+        self.id = id
+        self.fabricante = fabricante
         self.marca = marca
-        self.id_sala = id_sala
-        self.id_coped = id_coped
         self.modelo = modelo
+        self.numero_serie = numero_serie
+        self.potencia = potencia
+        self.consumo = consumo
+        self.voltagem = voltagem
+        
+        self.status = status
 
     def __repr__(self) -> str:
         return f"<ArCondicionado numero_serie={self.numero_serie}, status={self.status}, marca={self.marca}, modelo={self.modelo}>"

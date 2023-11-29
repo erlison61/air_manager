@@ -4,7 +4,7 @@ from helper.database import db, migrate
 from helper.api import api, blueprint
 from helper.cors import cors
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 api.init_app(app)
 cors.init_app(app)

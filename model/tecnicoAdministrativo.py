@@ -1,6 +1,6 @@
 from flask_restful import fields
 from helper.database import db
-from model.coped import Coped
+from model.Coped import Coped
 
 tecnico_administrativo_fields = {
     'id_coped': fields.Integer,

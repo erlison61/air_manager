@@ -1,5 +1,5 @@
 from flask_restful import Resource, marshal_with, reqparse
-from model.arCondicionado import ArCondicionado, ar_condicionado_fields
+from model.ArCondicionado import ArCondicionado, ar_condicionado_fields
 from helper.database import db
 
 class ArCondicionadoResource(Resource):
