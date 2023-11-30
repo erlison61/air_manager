@@ -1,6 +1,6 @@
 from flask_restful import fields
 from helper.database import db
-from model.Pessoa import Pessoa
+from model.pessoa import Pessoa
 
 
 professor_fields = {
@@ -29,8 +29,8 @@ class Professor(Pessoa):
 
     __mapper_args__ = {'polymorphic_identity': "professor", 'concrete': True}
 
-    def __init__(self, id:int, nome: str, sobrenome: str, email: str, telefone: str, numero_matricula: int, titulacao: str):
-        super().__init__(nome,sobrenome,email)
+    def __init__(self, id: int, nome: str, sobrenome: str, email: str, telefone: str, numero_matricula: int, titulacao: str):
+        super().__init__(nome, sobrenome, email)
         self.id = id
         self.telefone = telefone
         self.numero_matricula = numero_matricula

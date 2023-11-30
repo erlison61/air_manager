@@ -1,6 +1,6 @@
 from helper.database import db
 from model.Sala import Sala
-from model.ArCondicionado import ArCondicionado
+from model.arCondicionado import ArCondicionado
 
 
 class ArCondicionadoSala(db.Model):

@@ -1,9 +1,9 @@
 from flask import Blueprint
 from flask_restful import Api
-from resources.Professor import ProfessorResource
-from resources.Aula import AulaResource
 
+from resources.Aula import AulaResource
 from resources.Index import IndexResource
+from resources.Professor import ProfessorResource
 
 blueprint = Blueprint('api', __name__)
 
