@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from resources.Aula import AulaResource
+from resources.Aula import AulaResource, AulasResource
 from resources.Index import IndexResource
 from resources.Professor import ProfessorResource
 
@@ -12,3 +12,4 @@ api = Api(blueprint, prefix="/api")
 api.add_resource(IndexResource, '/')
 api.add_resource(ProfessorResource, '/professores/<int:id>')
 api.add_resource(AulaResource, '/aulas/<int:id>')
+api.add_resource(AulasResource, '/aulas')
