@@ -1,6 +1,6 @@
 from flask_restful import Resource, marshal_with, reqparse
 
-from model.professor import Professor, professor_fields
+from model.Professor import Professor, professor_fields
 from helper.database import db
 
 

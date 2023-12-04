@@ -1,10 +1,10 @@
 from flask_restful import fields
 from helper.database import db
-from model.pessoa import Pessoa
+from model.Pessoa import Pessoa
 
 
 professor_fields = {
-    'id':   fields.Integer,
+    'id_professor':   fields.Integer,
     'numero_matricula': fields.Integer,
     'nome':   fields.String,
     'sobrenome':   fields.String,
@@ -16,8 +16,9 @@ professor_fields = {
 
 class Professor(Pessoa):
     __tablename__ = "tb_professor"
-    id = db.Column(db.Integer, primary_key=True)
-    numero_matricula = db.Column(db.Integer, primary_key=True)
+
+    id_professor = db.Column(db.Integer, primary_key=True)
+    matricula = db.Column(db.Integer, unique=True)
     nome = db.Column(db.String(255), nullable=False)
     sobrenome = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
@@ -29,12 +30,12 @@ class Professor(Pessoa):
 
     __mapper_args__ = {'polymorphic_identity': "professor", 'concrete': True}
 
-    def __init__(self, id: int, nome: str, sobrenome: str, email: str, telefone: str, numero_matricula: int, titulacao: str):
+    def __init__(self, id_professor: int, nome: str, sobrenome: str, email: str, telefone: str, matricula: int, titulacao: str):
         super().__init__(nome, sobrenome, email)
-        self.id = id
+        self.id_professor = id_professor
         self.telefone = telefone
-        self.numero_matricula = numero_matricula
+        self.matricula = matricula
         self.titulacao = titulacao
 
     def __repr__(self) -> str:
-        return f"<Professor numero_matricula={self.numero_matricula}>"
+        return f"<Professor numero_matricula={self.matricula}>"

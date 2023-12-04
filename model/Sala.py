@@ -2,7 +2,6 @@ from flask_restful import fields
 
 from helper.database import db
 from model.Coped import Coped, coped_fields
-from model.Aula import aula_fields
 
 
 sala_fields = {
@@ -10,7 +9,6 @@ sala_fields = {
     'numero_bloco': fields.Integer,
     'capacidade': fields.Integer,
     'tipo_sala': fields.String,
-    'aula': fields.Nested(aula_fields),
     'coped': fields.Nested(coped_fields)
 }
 

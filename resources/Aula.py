@@ -1,8 +1,10 @@
-from flask_restful import Resource, reqparse, marshal_with
+from flask_restful import Resource, reqparse, marshal, marshal_with
+from datetime import datetime
 
 from model.Aula import Aula, aula_fields
+from model.Sala import Sala
+from model.Professor import Professor, professor_fields
 from helper.database import db
-from datetime import datetime
 
 
 class AulaResource(Resource):
@@ -13,32 +15,16 @@ class AulaResource(Resource):
         self.parser.add_argument(
             'fim', type=str, help="Formato inválido para o campo 'fim'. Use o formato ISO8601.")
         self.parser.add_argument(
-            'professor_id', type=str, help="ID do professor é obrigatório.")
+            'professor', type=dict, help="Professor é obrigatório.")
         self.parser.add_argument(
-            'sala_id', type=int, help="ID da sala é obrigatório.")
+            'sala', type=dict, help="Sala é obrigatório.")
 
-    @marshal_with(aula_fields)
     def get(self, id):
         aula = Aula.query.filter_by(id=id).first()
-        if aula:
-            return aula, 200
+        if aula is not None:
+            return marshal(aula, aula_fields), 200
         else:
             return {'message': 'Aula não encontrada'}, 404
-
-    def post(self):
-        args = self.parser.parse_args()
-
-        inicio = datetime.fromisoformat(args['inicio'])
-        fim = datetime.fromisoformat(args['fim'])
-        professor_id = args['professor_id']
-        sala_id = args['sala_id']
-
-        nova_aula = Aula(inicio=inicio, fim=fim,
-                         professor_id=professor_id, sala_id=sala_id)
-        db.session.add(nova_aula)
-        db.session.commit()
-
-        return nova_aula, 201
 
     def put(self, id):
         args = self.parser.parse_args()
@@ -71,3 +57,43 @@ class AulaResource(Resource):
         db.session.commit()
 
         return {'message': 'Aula deletada com sucesso'}, 200
+
+
+class AulasResource(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument(
+            'inicio', type=str, help="Formato inválido para o campo 'inicio'. Use o formato ISO8601.")
+        self.parser.add_argument(
+            'fim', type=str, help="Formato inválido para o campo 'fim'. Use o formato ISO8601.")
+        self.parser.add_argument(
+            'professor', type=dict, help="Professor é obrigatório.")
+        self.parser.add_argument(
+            'sala', type=dict, help="Sala é obrigatório.")
+
+    def post(self):
+        args = self.parser.parse_args()
+
+        # {
+        #     "inicio": "2023-12-04 14:11:00",
+        #     "fim": "2023-12-04 14:11:00",
+        #     "professor": {"id": 1, "id_professor": 1},
+        #     "sala": {"id":1}
+        # }
+        inicio = datetime.fromisoformat(args['inicio'])
+        print(inicio)
+        fim = datetime.fromisoformat(args['fim'])
+        print(fim)
+        id_professor = args['professor']['id_professor']
+        id_sala = args['sala']['id']
+
+        professor = Professor.query.filter_by(
+            id_professor=id_professor).first()
+        sala = Sala.query.filter_by(id=id_sala).first()
+
+        aula = Aula(inicio, fim, professor, sala)
+        db.session.add(aula)
+        db.session.commit()
+
+        return marshal(aula, aula_fields), 201
