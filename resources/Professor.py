@@ -1,4 +1,4 @@
-from flask_restful import Resource, marshal_with, reqparse
+from flask_restful import Resource, marshal_with, reqparse, marshal
 
 from model.Professor import Professor, professor_fields
 from helper.database import db
@@ -21,13 +21,39 @@ class ProfessorResource(Resource):
         self.parser.add_argument(
             'titulacao', type=str, help="problema com a conversão da titulação")
 
-    @marshal_with(professor_fields)
     def get(self, id):
         professor = Professor.query.filter_by(id=id).first()
-        return professor, 200
+        if professor is not None:
+            return marshal(professor, professor_fields), 200
+        
+        return {'message': 'Professor not found'}, 404
 
-    def __repr__(self) -> str:
-        return "<Professor numero_matricula={0}".format(self.numero_matricula)
+    def put(self, id):
+        args = self.parser.parse_args()
+
+        professor = Professor.query.filter_by(id=id).first()
+
+        if not professor:
+            return {'message': 'Professor not found'}, 404
+
+        if args['name']:
+            professor.name = args['name']
+            # Add similar lines for other fields
+
+        db.session.commit()
+
+        return marshal(professor, professor_fields), 200
+
+    def delete(self, id):
+        professor = Professor.query.filter_by(id=id).first()
+
+        if not professor:
+            return {'message': 'Professor not found'}, 404
+
+        db.session.delete(professor)
+        db.session.commit()
+
+        return {'message': 'Professor deleted successfully'}, 200
 
 
 class ProfessoresResource(Resource):
