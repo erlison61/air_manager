@@ -36,9 +36,10 @@ class ProfessorResource(Resource):
         if not professor:
             return {'message': 'Professor not found'}, 404
 
-        if args['name']:
-            professor.name = args['name']
-            # Add similar lines for other fields
+        if args['nome']:
+            professor.nome = args['nome']
+        if args['sobrenome']:
+            professor.sobrenome = args['sobrenome']
 
         db.session.commit()
 

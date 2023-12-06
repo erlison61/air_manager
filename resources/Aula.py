@@ -23,8 +23,8 @@ class AulaResource(Resource):
         aula = Aula.query.filter_by(id=id).first()
         if aula is not None:
             return marshal(aula, aula_fields), 200
-        else:
-            return {'message': 'Aula não encontrada'}, 404
+        
+        return {'message': 'Aula não encontrada'}, 404
 
     def put(self, id):
         args = self.parser.parse_args()
@@ -38,10 +38,10 @@ class AulaResource(Resource):
             aula.inicio = datetime.fromisoformat(args['inicio'])
         if args['fim']:
             aula.fim = datetime.fromisoformat(args['fim'])
-        if args['professor_id']:
-            aula.professor_id = args['professor_id']
-        if args['sala_id']:
-            aula.sala_id = args['sala_id']
+        if args['professor']:
+            aula.professor = args['professor']
+        if args['sala']:
+            aula.sala = args['sala']
 
         db.session.commit()
 

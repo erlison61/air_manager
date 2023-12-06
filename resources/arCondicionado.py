@@ -1,13 +1,14 @@
-from flask_restful import Resource, marshal_with, reqparse
-from model.ArCondicionado import ArCondicionado, ar_condicionado_fields
+from flask_restful import Resource, marshal_with, reqparse, marshal
+from model.arCondicionado import ArCondicionado, ar_condicionado_fields
 from helper.database import db
 
 class ArCondicionadoResource(Resource):
 
-    @marshal_with(ar_condicionado_fields)
-    def get(self, numero_serie):
-        ar_condicionado = ArCondicionado.query.filter_by(numero_serie=numero_serie).first()
-        return ar_condicionado, 200
+    def get(self):
+        ar_condicionados = ArCondicionado.query.all()
+        if ar_condicionados is not None:
+            return marshal(ar_condicionados, ar_condicionado_fields), 200
+        return {'message': 'erro ao buscar arcondicionado'}, 404
 
     def __repr__(self) -> str:
         return "<ArCondicionadoResource>"
@@ -18,33 +19,46 @@ class ArCondicionadosResource(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('status', type=bool, required=True, help='Status é requerido')
         self.parser.add_argument('marca', type=str, required=True, help='Marca é requerida')
-        self.parser.add_argument('id_sala', type=int, required=True, help='Sala id é requerido')
-        self.parser.add_argument('id_coped', type=int, required=True, help='Coped id é requerido')
         self.parser.add_argument('modelo', type=str, required=True, help='Modelo é requerido')
+        self.parser.add_argument('numero_serie', type=int, required=True, help='Numero de serie é requerido')
+        self.parser.add_argument('potencia', type=int, required=True, help='potencia é requerido')
+        self.parser.add_argument('numero_serie', type=int, required=True, help='Numero de serie é requerido')
+        self.parser.add_argument('consumo', type=int, required=True, help='consumo é requerido')
+        self.parser.add_argument('voltagem', type=float, required=True, help='voltagem é requerido')
 
+
+
+    def get(self, id):
+        ar_condicionado = ArCondicionado.query.filter_by(id=id).first()
+        if ar_condicionado is not None:
+            return marshal(ar_condicionado, ar_condicionado_fields), 200
    
-
-    @marshal_with(ar_condicionado_fields)
-    def get(self):
-        ar_condicionados = ArCondicionado.query.all()
-        return ar_condicionados, 200
+        return {'message': 'erro ao buscar arcondicionado'}, 404
     
+
+
     @marshal_with(ar_condicionado_fields)
     def post(self):
         args = self.parser.parse_args()
 
         status = args['status']
         marca = args['marca']
-        id_sala = args['id_sala']
-        id_coped = args['id_coped']
+        fabricante = args['fabricante']
         modelo = args['modelo']
+        numero_serie = args['numero_serie']
+        potencia = args['potencia']
+        consumo = args['consumo']
+        voltagem = args['voltagem']
 
         ar_condicionado = ArCondicionado(
-            status=status,
-            marca=marca,
-            id_sala=id_sala,
-            id_coped=id_coped,
-            modelo=modelo
+            fabricante, 
+            marca, 
+            modelo, 
+            numero_serie, 
+            potencia, 
+            consumo, 
+            voltagem, 
+            status
         )
 
         db.session.add(ar_condicionado)
