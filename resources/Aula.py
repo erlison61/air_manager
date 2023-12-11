@@ -45,7 +45,7 @@ class AulaResource(Resource):
 
         db.session.commit()
 
-        return aula, 200
+        return marshal(aula, aula_fields), 200
 
     def delete(self, id):
         aula = Aula.query.filter_by(id=id).first()

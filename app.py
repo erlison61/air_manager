@@ -9,7 +9,7 @@ app = Flask(__name__)
 api.init_app(app)
 cors.init_app(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://usr:pwd@localhost:5434/todos"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:post@localhost:5901/todos"
 db.init_app(app)
 migrate.init_app(app, db)
 

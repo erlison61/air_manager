@@ -30,3 +30,5 @@ class Coped(db.Model):
 
     def __repr__(self) -> str:
         return f"<Coped id={self.id}>"
+
+
