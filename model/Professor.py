@@ -5,7 +5,7 @@ from model.Pessoa import Pessoa
 
 professor_fields = {
     'id_professor':   fields.Integer,
-    'numero_matricula': fields.Integer,
+    'numero_matricula': fields.String,
     'nome':   fields.String,
     'sobrenome':   fields.String,
     'email':   fields.String,
@@ -18,7 +18,7 @@ class Professor(Pessoa):
     __tablename__ = "tb_professor"
 
     id_professor = db.Column(db.Integer, primary_key=True)
-    matricula = db.Column(db.Integer, unique=True)
+    matricula = db.Column(db.String(255), unique=True)
     nome = db.Column(db.String(255), nullable=False)
     sobrenome = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
@@ -30,9 +30,8 @@ class Professor(Pessoa):
 
     __mapper_args__ = {'polymorphic_identity': "professor", 'concrete': True}
 
-    def __init__(self, id_professor: int, nome: str, sobrenome: str, email: str, telefone: str, matricula: int, titulacao: str):
+    def __init__(self, nome: str, sobrenome: str, email: str, telefone: str, matricula: str, titulacao: str):
         super().__init__(nome, sobrenome, email)
-        self.id_professor = id_professor
         self.telefone = telefone
         self.matricula = matricula
         self.titulacao = titulacao

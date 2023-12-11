@@ -9,7 +9,7 @@ class TecnicoAdministrativoResource(Resource):
         self.parser.add_argument('nome', type=str, required=True, help="Nome é obrigatório.")
         self.parser.add_argument('telefone', type=str, required=True, help="Telefone é obrigatório.")
         self.parser.add_argument('cargo', type=str, required=True, help="Cargo é obrigatório.")
-        self.parser.add_argument('email', type=str)
+        self.parser.add_argument('email', type=str, required=True, help="Cargo é obrigatório.")
 
     def get(self, id):
         tecnico_administrativo = TecnicoAdministrativo.query.get(id)

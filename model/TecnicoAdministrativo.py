@@ -3,7 +3,6 @@ from flask_restful import fields
 from helper.database import db
 
 tecnico_administrativo_fields = {
-    'id_coped': fields.Integer,
     'id': fields.Integer,
     'nome': fields.String,
     'telefone': fields.String,

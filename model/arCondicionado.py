@@ -27,7 +27,7 @@ class ArCondicionado(db.Model):
     potencia = db.Column(db.Integer, nullable=False)
     consumo = db.Column(db.Float, nullable=False)
     voltagem = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Bool, nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
 
     status = db.Column(db.Boolean, nullable=False)
 

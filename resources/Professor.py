@@ -90,8 +90,7 @@ class ProfessoresResource(Resource):
         numero_matricula = args['numero_matricula']
         titulacao = args['titulacao']
 
-        professor = Professor(nome=nome, sobrenome=sobrenome, email=email,
-                              telefone=telefone, numero_matricula=numero_matricula, titulacao=titulacao)
+        professor = Professor(nome, sobrenome, email,telefone,numero_matricula,titulacao)
 
         db.session.add(professor)
         db.session.commit()
