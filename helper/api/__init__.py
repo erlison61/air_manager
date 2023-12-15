@@ -6,7 +6,7 @@ from resources.Index import IndexResource
 from resources.Professor import ProfessorResource, ProfessoresResource
 from resources.Sala import SalaResource, SalasResource
 from resources.Coped import CopedResource
-from resources.TecnicoAdministrativo import TecnicoAdministrativo, TecnicosAdministrativosResource
+from resources.TecnicoAdministrativo import TecnicoAdministrativoResource, TecnicosAdministrativosResource
 from resources.arCondicionado import ArCondicionadoResource, ArCondicionadosResource
 
 blueprint = Blueprint('api', __name__)
@@ -25,7 +25,7 @@ api.add_resource(AulasResource, '/aulas')
 
 api.add_resource(CopedResource, '/coped')
 
-api.add_resource(TecnicoAdministrativo, '/tecnicoAdministrativo')
+api.add_resource(TecnicoAdministrativoResource, '/tecnicoAdministrativo')
 api.add_resource(TecnicosAdministrativosResource, '/tecnicoAdministrativo/<int:id>')
 
 api.add_resource(ArCondicionadoResource, '/arcondicionado')
